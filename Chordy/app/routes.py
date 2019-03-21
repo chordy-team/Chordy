@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, flash, redirect
+from flask import render_template, flash, redirect, url_for
 from app.forms import LoginForm, SignupForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
@@ -7,7 +7,7 @@ from app.models import User
 
 @app.route('/')
 @app.route('/index')
-@login_required
+# @login_required
 def index():
     return "Chordy: an application"
 
@@ -18,38 +18,38 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return '/index'  # need to add a function to grab urls
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        # do something here to grab the uid from the DB as well
-        # maybe dont need because the user instance already has the uid in it?
+        # uid = user.query.filter_by(username=user.username.uid).first()  # I have no idea if this works but it should grad the uid of the user?
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return '/login'  # same as before
+            return redirect(url_for('login'))
         login_user(user)
-        return '/index'  # same as before
-    return render_template(login.html, title='Sign In', form=form)
+        return redirect(url_for('index'))
+    return render_template('loginpage.html', title='Sign In', form=form)
 
 
 @app.route('/logout')
-@login_required
-def logout():
+# @login_required
+def logoutfunct():
     logout_user()
-    return '/login'  # still need something to grab redirect urls
+    return redirect(url_for('index'))
 
 
 @app.route('/signup', methods=['GET', 'POST'])
-def register():
-    if current_user.is_authenticated:
-        return '/index'  # yep
+def signupfunct():
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('home'))
     form = SignupForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data)
-        user.set_password(form.password.data)
+        user = User(username=form.username.data, password=form.password.data, email=form.email.data)
+        # user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Registered')
-        return '/login'  # yep
+        flash('Sucessfully Signed Up')
+        return redirect(url_for('login'))
     return render_template('signup.html', title='Sign Up', form=form)  # Need a signup template
+
 

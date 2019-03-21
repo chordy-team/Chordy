@@ -49,8 +49,8 @@ class Chord(db.Model):
 
 class KeyChord(db.Model):
     __tablename__ = 'keychords'
-    kid = db.Column(db.Integer, db.ForeignKey('`keys`.kid'))
-    cid = db.Column(db.Integer, db.ForeignKey('chords.cid'))
+    kid = db.Column(db.Integer, db.ForeignKey('`keys`.kid'), primary_key=True)
+    cid = db.Column(db.Integer, db.ForeignKey('chords.cid'), primary_key=True)
 
     def __repr__(self):
         return '<keychords {}>'.format(self.kid, self.cid)
@@ -74,5 +74,5 @@ class Progression(db.Model):
 
 
 @login.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+def load_user(uid):
+    return User.query.get(int(uid))
