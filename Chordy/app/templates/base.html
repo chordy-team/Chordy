@@ -1,0 +1,17 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - Chordy</title>
+      {% else %}
+      <title>Welcome to Chordy</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Chordy:
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
