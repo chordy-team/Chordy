@@ -1,37 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Register</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}<br>
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.email.label }}<br>
-            {{ form.email(size=64) }}<br>
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}<br>
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password2.label }}<br>
-            {{ form.password2(size=32) }}<br>
-            {% for error in form.password2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Sign Up For Chordy</h5>
+                        <form class="form-signin" action="" method="post">
+                            {{ form.hidden_tag() }}
+                            <div class="form-label-group">
+                                {{ form.username(size=32, id="username", class="form-control", placeholder="User Name") }}
+                                {{ form.username.label }}<br>
+                                {% for error in form.username.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-label-group">
+                                {{ form.email(size=64, id="email", class="form-control", placeholder="Password") }}
+                                {{ form.email.label }}<br>
+                                {% for error in form.email.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-label-group">
+                                {{ form.password(size=32, id="password", class="form-control", placeholder="Confirm Password") }}
+                                {{ form.password.label }}<br>
+                                {% for error in form.password.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <div class="form-label-group">
+                                {{ form.password2(size=32, id="password2", class="form-control", placeholder="Confirm Password") }}
+                                {{ form.password2.label }}<br>
+                                {% for error in form.password2.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            <hr class="my-4">
+                            {{ form.submit(class="btn btn-lg btn-primary btn-block text-uppercase") }}
+                        </form>
+                        <hr class="my-4">
+                        <a class="btn btn-lg btn-secondary btn-block text-uppercase" href="{{ url_for('login') }}">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

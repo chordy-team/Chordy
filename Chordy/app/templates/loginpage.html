@@ -1,17 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Sign In</h5>
+                    <form class="form-signin" action="" method="post" novalidate>
+                        {{ form.hidden_tag() }}
+                            <div class="form-label-group"> 
+                                {{ form.username(size=32, id="username", class="form-control", placeholder="User Name") }}
+                                {{ form.username.label }}
+                            </div>
+                            <div class="form-label-group">
+                                {{ form.password(size=32, id="password", class="form-control", placeholder="Password") }}
+                                {{ form.password.label }}
+                            </div>
+                            <hr class="my-4">
+                            {{ form.submit(class="btn btn-lg btn-primary btn-block text-uppercase") }}
+                    </form>
+                    <hr class="my-4">
+                    <a class="btn btn-lg btn-secondary btn-block text-uppercase" href="{{ url_for('signupfunct') }}">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

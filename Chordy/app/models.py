@@ -24,6 +24,13 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    @login.user_loader
+    def load_user(uid):
+        return User.query.get(int(uid))
+    
+    def get_id(self):
+           return (self.uid)
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -71,8 +78,3 @@ class Progression(db.Model):
     c4 = db.Column(db.Integer, db.ForeignKey('chords.cid'))
     date = db.Column(db.DateTime)
     uid = db.Column(db.Integer, db.ForeignKey('users.uid'))
-
-
-@login.user_loader
-def load_user(uid):
-    return User.query.get(int(uid))
