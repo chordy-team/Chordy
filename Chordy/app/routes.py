@@ -6,10 +6,15 @@ from app.models import User
 
 
 @app.route('/')
+def default():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    return redirect(url_for('login'))
+
 @app.route('/index')
-# @login_required
+@login_required
 def index():
-    return "Chordy: an application"
+    return render_template('home.html', title='Home')
 
 
 # This requires the usage of an html form for what the login page
@@ -23,16 +28,16 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         # uid = user.query.filter_by(username=user.username.uid).first()  # I have no idea if this works but it should grad the uid of the user?
-        if user is None or not user.check_password(form.password.data):
+        if user is None or user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user)
         return redirect(url_for('index'))
-    return render_template('loginpage.html', title='Sign In', form=form)
+    return render_template('loginpage.html', title='Sign In', form=form, user=False)
 
 
 @app.route('/logout')
-# @login_required
+@login_required
 def logoutfunct():
     logout_user()
     return redirect(url_for('index'))
@@ -51,5 +56,3 @@ def signupfunct():
         flash('Sucessfully Signed Up')
         return redirect(url_for('login'))
     return render_template('signup.html', title='Sign Up', form=form)  # Need a signup template
-
-
