@@ -1,4 +1,41 @@
-{% extends "layout.html" %}
+{% extends "base.html" %}
 {% block content %}
-	<h1> HOME PAGE </h1>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-7 offset-sm-1">
+			<form class="form-generator" action="" method="post">
+			<div class="form-label-group text-center"> 
+				{{ form.chord1(class="chord-area", readonly=true, rows=5, cols=16, id="chord1") }}
+				{{ form.chord2(class="chord-area", readonly=true, rows=5, cols=16, id="chord2") }}
+				{{ form.chord3(class="chord-area", readonly=true, rows=5, cols=16, id="chord3") }}
+				{{ form.chord4(class="chord-area", readonly=true, rows=5, cols=16, id="chord4") }}
+			</div>
+			<div class="form-label-group text-center"> 
+				{{ form.num1(class="num-area", readonly=true, rows=5, cols=16, id="num1") }}
+				{{ form.num2(class="num-area", readonly=true, rows=5, cols=16, id="num2") }}
+				{{ form.num3(class="num-area", readonly=true, rows=5, cols=16, id="num3") }}
+				{{ form.num4(class="num-area", readonly=true, rows=5, cols=16, id="num4") }}
+			</div>
+		</div>
+		<div class="col-sm-2">
+				{{ form.submit(class="btn btn-lg btn-primary btn-block text-uppercase") }}
+		</div>
+		</form>
+	</div>
+	<div class="row">
+		<div class="col-sm-1 offset-sm-1">
+			{{ form.keySelect(id="key") }}
+		</div>
+		<div class="col-sm-2">
+			<label class="radio-inline"><input type="radio" name="optradio" id="scale-major" checked> Major</label>
+			<label class="radio-inline"><input type="radio" name="optradio"> Minor</label>
+		</div>
+		<div class="col-sm-4">
+			<button class="btn btn-lg btn-success float-right" onclick="generateProgression()">Generate</button>
+		</div>
+	</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type=text/javascript src="{{ url_for('static', filename='main.js') }}"></script>
 {% endblock content %}

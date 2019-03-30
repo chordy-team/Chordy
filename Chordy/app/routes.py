@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for
-from app.forms import LoginForm, SignupForm
+from app.forms import LoginForm, SignupForm, ChordGenForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 
@@ -14,8 +14,14 @@ def default():
 @app.route('/index')
 @login_required
 def index():
-    return render_template('home.html', title='Home')
+    if not current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ChordGenForm()
+    return render_template('home.html', title='Home', form=form)
 
+@app.route('/chords')
+def chordsList():
+    return render_template('chordsList.html', title='Saved Chords')
 
 # This requires the usage of an html form for what the login page
 # looks like. It so far only has username, password, and sign in
@@ -33,7 +39,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user)
         return redirect(url_for('index'))
-    return render_template('loginpage.html', title='Sign In', form=form, user=False)
+    return render_template('loginpage.html', title='Sign In', form=form)
 
 
 @app.route('/logout')

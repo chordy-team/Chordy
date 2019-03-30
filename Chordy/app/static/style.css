@@ -5,9 +5,21 @@
   --input-padding-y: .75rem;
 }
 
+/*div {
+  border: 1px solid red;
+}*/
+
 body {
   background: #007bff;
   background: linear-gradient(to right, #0062E6, #33AEFF);
+}
+
+.chord-area {
+  resize: none;
+}
+
+.num-area {
+  resize: none;
 }
 
 .card-signin {
