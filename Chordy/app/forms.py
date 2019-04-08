@@ -34,3 +34,11 @@ class ChordGenForm(FlaskForm):
     num4 = TextAreaField('num4', validators=[DataRequired()])
     keySelect = SelectField('Languages', choices = [('C', 'C'), ('D', 'D'), ('E', 'E'), ('F', 'F'), ('G', 'G'), ('A', 'A'), ('B', 'B')])
     submit = SubmitField('Save')
+
+class SavedChordsForm(FlaskForm):
+    chord1 = TextAreaField('chord1')
+    chord2 = TextAreaField('chord2')
+    chord3 = TextAreaField('chord3')
+    chord4 = TextAreaField('chord4')
+    progid = StringField('progid')
+    submit = SubmitField('Delete')

@@ -78,3 +78,6 @@ class Progression(db.Model):
     c4 = db.Column(db.Integer, db.ForeignKey('chords.cid'))
     date = db.Column(db.DateTime)
     uid = db.Column(db.Integer, db.ForeignKey('users.uid'))
+
+    def get_id(self):
+        return (self.progid)
