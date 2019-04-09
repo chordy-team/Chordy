@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block app_content %}
+	<h1> {{ current_user.username }}'s Saved Chords </h1>
+   <table border=1>
+      <thead class="thead-dark">
+        <tr>
+          <th>Chord 1</th>
+          <th>Chord 2</th>
+          <th>Chord 3</th>
+          <th>Chord 4</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+         {% for progression in progarray %}
+            <tr>
+             <td>{{ progression[1] }}</td>
+             <td> {{ progression[2] }} </td>
+             <td>{{ progression[3] }} </td>
+             <td>{{ progression[4] }} </td>
+                <td><a href="{{ url_for('editprog',editid=progression[0]) }}">Edit</a><td>
+             <td><a href="{{ url_for('deleteprog',deleteid=progression[0]) }}">Delete</a><td>
+            </tr>
+         {% endfor %}
+      </tbody>
+      </table>
+{% endblock app_content %}

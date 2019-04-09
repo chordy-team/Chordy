@@ -8,9 +8,9 @@ from flask_sqlalchemy import SQLAlchemy
 # INVALIDREQUESTERRORS AND ROLLBACK THE SESSION THEN TRY TO ADD AGAIN
 
 
-class User(UserMixin, db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
-    uid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(45), index=True, unique=True)
     password = db.Column(db.String(45))
     email = db.Column(db.String(100))
@@ -22,7 +22,8 @@ class User(UserMixin, db.Model):
         self.password = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password, password)
+        # return check_password_hash(self.password, password)
+        return self.password == password
 
 
 class Post(db.Model):
@@ -44,7 +45,7 @@ class Chord(db.Model):
     image = db.Column(db.String(100))
 
     def __repr__(self):
-        return '<Chord {}>'.format(self.name)
+        return '<chord {}>'.format(self.name)
 
 
 class KeyChord(db.Model):
@@ -57,7 +58,7 @@ class KeyChord(db.Model):
 
 
 class Key(db.Model):
-    __tablename__ = '`keys`'
+    __tablename__ = 'keys'
     kid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(10), unique=True)
 
@@ -70,7 +71,7 @@ class Progression(db.Model):
     c3 = db.Column(db.Integer, db.ForeignKey('chords.cid'))
     c4 = db.Column(db.Integer, db.ForeignKey('chords.cid'))
     date = db.Column(db.DateTime)
-    uid = db.Column(db.Integer, db.ForeignKey('users.uid'))
+    uid = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 
 @login.user_loader

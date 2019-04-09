@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block app_content %}
+
+	<form action="" method="post" novalidate>
+		{{ form.hidden_tag() }}
+        <p>
+            {{ form.chord1.label }} {{ form.chord2.label }} {{ form.chord3.label }} {{ form.chord4.label }}</br>
+            {{ form.chord1(size=32) }} {{ form.chord2(size=32) }} {{ form.chord3(size=32) }} {{ form.chord4(size=32) }}
+        </p>
+		<p>
+			{{ form.submit() }}
+		</p>
+	</form>
+	<form action="" method="post" novalidate>
+		{{ form2.hidden_tag() }}
+		<p>
+			{{ form2.chosenKey.label }} </br>
+			{{ form2.chosenKey}}
+			{{ form2.submit }}
+		</p>
+	</form>
+	<a href ="{{ url_for('genchords', val=form2.chosenKey.data) }}">Generate</a>
+	<a href="{{ url_for('chordsList') }}">Saved Chords</a>
+{% endblock app_content %}	
